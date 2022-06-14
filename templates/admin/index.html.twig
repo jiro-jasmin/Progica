@@ -1,0 +1,52 @@
+{% extends "dashboard.html.twig" %}
+
+{% block body %}
+<h1>Gestion des gites</h1>
+
+{% for message in app.flashes('success') %}
+<div class="col-md-5 mt-2 mb-2">
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+</div>
+{% endfor %}
+
+{% for message in app.flashes('error') %}
+<div class="col-md-5 mt-2 mb-2">
+    <div class="alert alert-danger">
+        {{ message }}
+    </div>
+</div>
+{% endfor %}
+
+<div class="form-group">
+    <a href="{{path('admin_gite_create')}}" class="btn btn-success">Creer un gite</a>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>#</td>
+            <td>Nom du gite</td>
+            <td>Actions</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for gite in gites %}
+        <tr>
+            <td>{{ gite.id }}</td>
+            <td>{{ gite.nom }}</td>
+            <td>
+                <a href="{{ path('admin_gite_edit', {id: gite.id}) }}" class="btn btn-secondary">Editer</a>
+                
+                <form action="{{ path('admin_gite_delete', {id: gite.id}) }}" method="post">
+                <input type="hidden" name="token" value="{{ csrf_token('gite_delete' ~ gite.id) }}">
+                <input type="submit" class="btn btn-danger" value="Supprimer">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
