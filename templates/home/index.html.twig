@@ -3,23 +3,72 @@
 {% block title %} {{ title }} {% endblock %}
 
 {% block body %}
-<h1>Hello World</h1>
 
+{{ form_start(form) }}
+<div class="row">
+    <div class="card mb-3">
+        <div class="row card-body">
+            <div class="col-md-3">
+                {{ form_row(form.minSurface) }}
+            </div>
+            <div class="col-md-3">
+                {{ form_row(form.minChambre) }}
+            </div>
+            <div class="col-md-3">
+                {{ form_row(form.minCouchage) }}
+            </div>
+            <div class="col-md-3 d-flex justify-content-center">
+                {{ form_row(form.submit) }}
+            </div>
+            <div class="col-md-2">
+                <a href="#" id="seeMore" class="ms-1 link-secondary">+ d'options</a>
+                <a href="#" id="seeLess" class="ms-1 link-secondary">Masquer les options</a>
+            </div>
+            <div class="row" id="moreSearchTerms">
+                <div class="col-md-3 mt-2">
+                    {{ form_row(form.equipement) }}
+                </div>
+                <div class="col-md-3 mt-2">
+                    {{ form_row(form.maxTarif) }}
+                </div>
+                <div class="col-md-3 mt-2">
+                    {{ form_row(form.region) }}
+                </div>
+            </div>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+</div>
 <div class="row">
 
     {% for gite in gites %}
-    <div class="col-md-4">
-        <div class="card" style="width: 18rem;">
-            <img src="..." class="card-img-top" alt="...">
+    <div class="col-md-4 d-flex justify-content-center mb-3">
+        <div class="card text-center" style="width: 20rem;">
+            <img src="{{ asset('images/gite.jpg') }}" class="card-img-top" alt="Gite">
             <div class="card-body">
                 <h5 class="card-title">{{ gite.nom }}</h5>
-                <p class="card-text">{{ gite.description }}</p>
-                <a href="{{ path('gite_show', {id: gite.id}) }}" class="btn btn-primary">Voir le gite</a>
+                <p class="card-text">
+                    <strong>{{ gite.region.nom }}</strong><br>
+                    {{ gite.surface }} m² <br>
+                    <img src="{{ asset('images/icon-chambre.png') }}" alt="" width="15px" height="15px">
+                    {{ gite.chambre }}
+                    {% if gite.chambre == 1 %}
+                    chambre
+                    {% else %}
+                    chambres
+                    {% endif %} <br>
+                    <img src="{{ asset('images/icon-couchage.png') }}" alt="" width="15px" height="15px">
+                    {{ gite.couchage }} pers.<br>
+                </p>
+                <a href="{{ path('gite_show', {id: gite.id}) }}" class="btn btn-info">Voir le gite</a>
+                <div class="d-flex justify-content-end">
+                    <p class="mb-0">A partir de <strong style="text-align: right; font-size: 1.5em;">{{ gite.tarifHebdo }} €</strong></p>
+                </div>
             </div>
         </div>
     </div>
     {% endfor %}
 </div>
-
 
 {% endblock %}

@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Gite;
+use App\Entity\GiteSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -37,6 +38,64 @@ class GiteRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * @return Gite[]
+     */
+    public function findGiteSearch(GiteSearch $search)
+    {
+        $query = $this->createQueryBuilder('g'); // alias de la table en parametre obligatoire
+
+        // WHERE g.surface >= surface AND etc
+        if($search->getMinSurface())
+        {
+            $query = $query->andWhere("g.surface >= :minSurface")
+                            ->setParameter("minSurface", $search->getMinSurface());
+        }
+
+        if($search->getMinChambre())
+        {
+            $query = $query->andWhere("g.chambre >= :minChambre")
+                            ->setParameter("minChambre", $search->getMinChambre());
+        }
+
+        if($search->getMinCouchage())
+        {
+            $query = $query->andWhere("g.couchage >= :minCouchage")
+                            ->setParameter("minCouchage", $search->getMinCouchage());
+        }
+        if($search->getEquipement()->count() > 0){
+            $k = 0;
+            foreach($search->getEquipement() as $k => $equipement) {
+                $k++;
+                $query = $query
+            ->andWhere(":equipement$k MEMBER OF g.equipements")
+            ->setParameter("equipement$k", $equipement);       
+            }
+        }
+        if($search->getRegion()->count() > 0){
+            $k = 0;
+            foreach($search->getRegion() as $k => $region) {
+                $k++;
+                $query = $query
+            ->andWhere(":region$k MEMBER OF g.region")
+            ->setParameter("region$k", $region);       
+            }
+        }
+        if($search->getMaxTarif())
+        {
+            $query = $query->andWhere("g.tarif <= :maxTarif")
+                            ->setParameter("maxTarif", $search->getMaxTarif());
+        }
+
+        $query = $query
+        // SELECT * FROM Gite g ORDER BY g.id ASC
+                    ->orderBy("g.id", "ASC")
+                    ->getQuery()
+                    ->getResult();
+
+        return $query;
     }
 
 //    /**

@@ -31,10 +31,20 @@ Création d'un gite
         {{ form_row(formGite.description) }}
     </div>
 </div>
-
-<div class="form-group">
-    <button type="submit" class="btn btn-primary">Enregistrer</button>
-    <button type="reset" class="btn btn-default">Annuler</button>
+<div class="row">
+    <div class="col-md-4">
+        {{ form_row(formGite.proprietaire) }}
+    </div>
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        {{ form_row(formGite.equipements) }}
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary mb-4">Enregistrer</button>
+        <button type="reset" class="btn btn-default mb-4">Annuler</button>
+    </div>
 </div>
 
 {{ form_end(formGite) }}

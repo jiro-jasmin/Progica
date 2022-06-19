@@ -23,9 +23,9 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
+            <a class="navbar-brand titlefont" id="progica" href="{{ path('home_index') }}">Progica</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -35,21 +35,42 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link {% if menu is defined and menu == 'home' %} active {% endif %}"
-                            href="{{ path('home_index') }}">Home</a>
+                            href="{{ path('home_index') }}">Accueil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if menu is defined and menu == 'contact' %} active {% endif %}" 
-                        href="{{ path('home_contact') }}">Contact</a>
+                        <a class="nav-link {% if menu is defined and menu == 'contact' %} active {% endif %}"
+                            href="{{ path('home_contact') }}">Contact</a>
+                    </li>
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if menu is defined and menu == 'admin' %} active {% endif %}"
+                            href="{{ path('admin_index') }}">Admin</a>
+                    </li>
+                    {% endif %}
+                </ul>
+
+                <ul class="navbar-nav d-flex ">
+                    {% if app.user %}
+                    <li class="nav-item">
+                        <b class="nav-link active">Bonjour {{ app.user.userIdentifier }}</b>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if menu is defined and menu == 'admin' %} active {% endif %}" 
-                        href="{{ path('admin_index') }}">Admin</a>
+                        <a href="{{ path('app_logout') }}" class="nav-link">Se déconnecter</a>
                     </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a href="{{ path('app_login') }}" class="nav-link">Se connecter</a>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
-        </div>
+
     </nav>
     <main class="container">
+        <h1 class="mt-2 mb-3 titlefont">
+            {% if heading is defined %} {{ heading }}
+            {% endif %}
+        </h1>
         {% block body %} {% endblock %}
 
         {% block footer %} {% endblock %}

@@ -3,6 +3,24 @@
 {% block title %} {{ title }} {% endblock %}
 
 {% block body %}
-    <h1>Formulaire de contact</h1>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos tempore illo omnis aliquam fugit totam et beatae maiores ipsum debitis iusto, ea eos tenetur nihil sit deleniti esse autem! Ea?</p>
+
+{% for message in app.flashes('success') %}
+<div class="col-md-4 mt-3">
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+</div>
+
+{% endfor %}
+
+
+<div class="row">
+    <div class="col-md-6">
+        {{ form_start(form) }}
+        {{ form_rest(form) }}
+
+        <button type="submit" class="btn btn-info">Envoyer</button>
+        {{ form_end(form) }}
+    </div>
+</div>
 {% endblock %}

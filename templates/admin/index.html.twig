@@ -1,10 +1,10 @@
 {% extends "dashboard.html.twig" %}
 
 {% block body %}
-<h1>Gestion des gites</h1>
+<h1 class="titlefont mt-2 mb-2">Gestion des gites</h1>
 
 {% for message in app.flashes('success') %}
-<div class="col-md-5 mt-2 mb-2">
+<div class="col-md-5 mt-3 mb-3">
     <div class="alert alert-success">
         {{ message }}
     </div>

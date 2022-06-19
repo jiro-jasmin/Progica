@@ -1,3 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Fascinate&display=swap');
+
 body {
-    background-color: lightgray;
+    background: rgb(255,255,255);
+    background: linear-gradient(57deg, rgba(255,255,255,1) 0%, rgba(233,229,255,1) 46%, rgba(207,247,255,1) 100%);
+}
+
+#progica {
+    font-size: 1.4em;
+}
+
+.titlefont {
+    font-family: 'Fascinate', cursive;
+}
+
+/* Pour faire une transition quand le texte apparait */
+.fade {
+    opacity: 0;
+    transition: opacity 0.8s;
+}
+
+.fade.in {
+    opacity: 1;
+}
+
+#seeLess {
+    display: none;
+}
+
+#moreSearchTerms {
+    display: none;
 }

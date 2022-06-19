@@ -7,22 +7,40 @@
 {% block body %}
 
 <div class="row mt-2 mb-2">
+    <div class="col-md-1"></div>
     <div class="col-md-10">
         <div class="card">
             <div class="card-body">
-                {{ gite.nom }}
+               <h3 class="text-center">{{ gite.nom }}</h3>
             </div>
         </div>
     </div>
 </div>
 
-<div class="row">
-    <div class="col-md-10">
-        {{ gite.description }}
+<div class="row d-flex justify-content-center">
+    <div class="col-md-4">
+        <img src="{{ asset('images/gite.jpg') }}" alt="Gite" style="width: 25rem;" maxwidth="300px">
     </div>
 </div>
 
 <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        {{ gite.description }}
+        <br>
+        <strong>Adresse: </strong>  {{ gite.adresse }}
+        <br>
+        <strong>Région: </strong>{{ gite.region.nom }}
+
+        {% if gite.proprietaire is not null %}
+        <br><br>Ce gite est une propriété de <strong>{{ gite.proprietaire.username }}</strong>.
+        {% endif %}
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
     <div class="col-md-4">
         <table class="table">
             <tr>
@@ -30,17 +48,38 @@
                 <td> {{ gite.surface }} m² </td>
             </tr>
             <tr>
-                <th>Chambre</th>
+                <th>
+                    {% if gite.chambre == 1 %}
+                    Chambre
+                    {% else %}
+                    Chambres
+                    {% endif %}
+                </th>
                 <td> {{ gite.chambre }} </td>
             </tr>
             <tr>
-                <th>Couchage</th>
+                <th>Couchages</th>
                 <td> {{ gite.couchage }} </td>
+            </tr>
+            <tr>
+                <th>Tarif hebdomadaire</th>
+                <td> <strong>{{ gite.tarifHebdo }} €</strong></td>
             </tr>
         </table>
     </div>
-
-    <div class="col-md-6">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-4">
+        {% if gite.equipements is not empty %}
+        <table class="table">
+            <th>Equipement:</th>
+            {% for equipement in gite.equipements %}
+            <tr>
+                <td>{{ equipement.name }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
     </div>
 </div>
 
