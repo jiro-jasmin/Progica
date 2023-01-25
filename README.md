@@ -8,7 +8,9 @@ The use of a panel is recommanded for security (e.g prevents user from entering 
 
 ---  
   
-Infortunately, there is no online demo at the moment.
+Infortunately, there is no online demo of this project at the moment.  
+For now, click here to watch a video I recorded using my localhost:  
+[![CLICK HERE FOR VIDEO DEMO](https://img.youtube.com/vi/xmWqfdf-avA/0.jpg)](https://www.youtube.com/watch?v=xmWqfdf-avA&feature=youtu.be)
   
 ---
 
